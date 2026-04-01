@@ -81,7 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdownItems = document.querySelectorAll('.dropdown-item');
     dropdownItems.forEach((item, index) => {
         item.style.setProperty('--delay', `${index * 0.05}s`);
-        // Hero Section Entrance Animation
+    });
+
+    // Hero Section Entrance Animation
     const heroTitle = document.querySelector('.hero-title');
     const heroSubtitle = document.querySelector('.hero-subtitle');
     const heroBtns = document.querySelector('.hero-btns');
@@ -134,5 +136,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 600);
     }, 800);
+
+    // Slider Logic
+    const sliderTrack = document.getElementById('sliderTrack');
+    const slidePrev = document.getElementById('slidePrev');
+    const slideNext = document.getElementById('slideNext');
+    const progressBar = document.getElementById('progressBar');
+
+    if (sliderTrack && slidePrev && slideNext && progressBar) {
+        const cardWidth = sliderTrack.querySelector('.slider-card').offsetWidth + 30; // card + gap
+
+        slideNext.addEventListener('click', () => {
+            sliderTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        });
+
+        slidePrev.addEventListener('click', () => {
+            sliderTrack.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        });
+
+        // Update Progress Bar
+        sliderTrack.addEventListener('scroll', () => {
+            const maxScroll = sliderTrack.scrollWidth - sliderTrack.clientWidth;
+            if (maxScroll > 0) {
+                const scrollPercent = (sliderTrack.scrollLeft / maxScroll) * 100;
+                // Progress bar width reflects visible portion + scroll
+                progressBar.style.width = `${Math.max(25, scrollPercent)}%`;
+            }
+        });
+    }
 });
-});
+

@@ -159,10 +159,179 @@ document.addEventListener('DOMContentLoaded', () => {
             const maxScroll = sliderTrack.scrollWidth - sliderTrack.clientWidth;
             if (maxScroll > 0) {
                 const scrollPercent = (sliderTrack.scrollLeft / maxScroll) * 100;
-                // Progress bar width reflects visible portion + scroll
                 progressBar.style.width = `${Math.max(25, scrollPercent)}%`;
             }
         });
     }
+
+    // ============================================================
+    //  HOW IT WORKS — Auto-moving Carousel with Swipe Support
+    // ============================================================
+    const hwTrack       = document.getElementById('howWorksTrack');
+    const hwOuter       = document.getElementById('howWorksOuter');
+    const hwProgressEl  = document.getElementById('howWorksProgress');
+
+    if (hwTrack && hwOuter) {
+        const hwCards       = Array.from(hwTrack.querySelectorAll('.how-works-card'));
+        const totalCards    = hwCards.length;
+        let currentIndex    = 0;
+        let autoPlayTimer   = null;
+        let isDragging      = false;
+        let dragStartX      = 0;
+        let dragStartScroll = 0;
+        let isScrolling     = false;
+
+        // --- Calculate card width + gap dynamically ---
+        function getCardStep() {
+            const style = getComputedStyle(hwTrack);
+            const gap   = parseFloat(style.gap) || 20;
+            return hwCards[0].offsetWidth + gap;
+        }
+
+        // --- Scroll position to bring card[index] into view from left offset ---
+        function getScrollForIndex(index) {
+            const outerW    = hwOuter.offsetWidth;
+            const cardMid   = hwCards[index].offsetLeft + hwCards[index].offsetWidth / 2;
+            return cardMid - outerW / 2;
+        }
+
+        // --- Navigate to index ---
+        function goToIndex(index, animated = true) {
+            currentIndex = Math.max(0, Math.min(index, totalCards - 1));
+            const scrollTarget = getScrollForIndex(currentIndex);
+            if (animated) {
+                hwOuter.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+            } else {
+                hwOuter.scrollLeft = scrollTarget;
+            }
+            updateProgress();
+        }
+
+        // --- Update progress bar width ---
+        function updateProgress() {
+            if (!hwProgressEl) return;
+            // progress = currentIndex / (totalCards - 1) but min 8% for visibility
+            const pct = totalCards > 1
+                ? Math.round((currentIndex / (totalCards - 1)) * 100)
+                : 100;
+            hwProgressEl.style.width = Math.max(8, pct) + '%';
+        }
+
+        // --- Detect closest card to centre when user scrolls ---
+        function updateIndexFromScroll() {
+            const outerW    = hwOuter.offsetWidth;
+            const scrollMid = hwOuter.scrollLeft + outerW / 2;
+            let closestIdx  = 0;
+            let closestDist = Infinity;
+            hwCards.forEach((card, i) => {
+                const cardMid = card.offsetLeft + card.offsetWidth / 2;
+                const dist    = Math.abs(cardMid - scrollMid);
+                if (dist < closestDist) { closestDist = dist; closestIdx = i; }
+            });
+            if (closestIdx !== currentIndex) {
+                currentIndex = closestIdx;
+                updateProgress();
+            }
+        }
+
+        // --- Auto-play ---
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoPlayTimer = setInterval(() => {
+                const next = (currentIndex + 1) % totalCards;
+                goToIndex(next);
+            }, 3000);
+        }
+
+        function stopAutoPlay() {
+            if (autoPlayTimer) { clearInterval(autoPlayTimer); autoPlayTimer = null; }
+        }
+
+        function resetAutoPlay() {
+            stopAutoPlay();
+            setTimeout(() => startAutoPlay(), 4000);
+        }
+
+        // --- Scroll listener ---
+        hwOuter.addEventListener('scroll', () => {
+            updateIndexFromScroll();
+            clearTimeout(hwOuter._scrollEnd);
+            hwOuter._scrollEnd = setTimeout(() => {
+                goToIndex(currentIndex);
+            }, 120);
+        }, { passive: true });
+
+        // --- Mouse drag ---
+        hwOuter.addEventListener('mousedown', (e) => {
+            isDragging      = true;
+            dragStartX      = e.pageX;
+            dragStartScroll = hwOuter.scrollLeft;
+            hwOuter.style.scrollBehavior = 'auto';
+            stopAutoPlay();
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            hwOuter.scrollLeft = dragStartScroll - (e.pageX - dragStartX);
+        });
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            hwOuter.style.scrollBehavior = '';
+            goToIndex(currentIndex);
+            resetAutoPlay();
+        });
+
+        // --- Touch swipe ---
+        hwOuter.addEventListener('touchstart', (e) => {
+            dragStartX      = e.touches[0].pageX;
+            dragStartScroll = hwOuter.scrollLeft;
+            hwOuter.style.scrollBehavior = 'auto';
+            stopAutoPlay();
+        }, { passive: true });
+        hwOuter.addEventListener('touchmove', (e) => {
+            hwOuter.scrollLeft = dragStartScroll - (e.touches[0].pageX - dragStartX);
+        }, { passive: true });
+        hwOuter.addEventListener('touchend', () => {
+            hwOuter.style.scrollBehavior = '';
+            goToIndex(currentIndex);
+            resetAutoPlay();
+        });
+
+        // Pause on hover
+        hwOuter.addEventListener('mouseenter', stopAutoPlay);
+        hwOuter.addEventListener('mouseleave', startAutoPlay);
+
+        // Init
+        setTimeout(() => {
+            goToIndex(0, false);
+            startAutoPlay();
+        }, 150);
+    }
+
+    // ============================================================
+    //  SERVICES ACCORDION — Tab Switching
+    // ============================================================
+    const accorBtns = document.querySelectorAll('.accor-btn');
+    const accorPanes = document.querySelectorAll('.accor-content-pane');
+
+    if (accorBtns.length > 0) {
+        accorBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-content');
+                const targetPane = document.getElementById(targetId);
+
+                if (targetPane) {
+                    // Remove active classes
+                    accorBtns.forEach(b => b.classList.remove('active'));
+                    accorPanes.forEach(p => p.classList.remove('active'));
+
+                    // Add active class to current
+                    btn.classList.add('active');
+                    targetPane.classList.add('active');
+                }
+            });
+        });
+    }
+
 });
 

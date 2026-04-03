@@ -12,6 +12,19 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/button.css">
+
+    <!-- Internal Style for Hero Background Fix -->
+    <style>
+        .hero-container-contact {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 100%), url('assets/contact-us.png') !important;
+        }
+
+        @media (max-width: 767px) {
+            .hero-container-contact {
+                background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 100%), url('assets/mobile-contact.avif') !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -43,23 +56,22 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
                             <li><a class="dropdown-item" href="affidavit.html">Document & Affidavit</a></li>
+                            <li><a class="dropdown-item" href="import-export.html">Import & Export</a></li>
+                            <li><a class="dropdown-item" href="tours-event-management.html">Tours & Event Management</a>
+                            <li><a class="dropdown-item" href="legal-help.html">Legal Help</a></li>
                             <li><a class="dropdown-item" href="property-services.html">Property Services</a></li>
                             <li><a class="dropdown-item" href="financial-services.html">Financial Services</a></li>
                             <li><a class="dropdown-item" href="business-setup.html">Business Setup</a></li>
-                            <li><a class="dropdown-item" href="legal-help.html">Legal Help</a></li>
-                            <li><a class="dropdown-item" href="import-export.html">Import & Export</a></li>
-                            <li><a class="dropdown-item" href="tours-event-management.html">Tours & Event Management</a>
-                            </li>
-                            <li><a class="dropdown-item" href="comprehensive.html">Comprehensive NRI Services</a></li>
-                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Why Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="contact-us.html" class="btn btn-get-in-touch effects ms-lg-4"><span>Get In
-                                Touch</span></a>
-                    </li>
+                    <li><a class="dropdown-item" href="comprehensive.html">Comprehensive NRI Services</a></li>
+                </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Why Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact-us.html" class="btn btn-get-in-touch effects ms-lg-4"><span>Get In Touch</span></a>
+                </li>
                 </ul>
 
             </div>
@@ -87,12 +99,12 @@
                                 class="fa-solid fa-chevron-down"></i></a>
                         <ul class="mobile-dropdown-content">
                             <li><a href="affidavit.html">Document & Affidavit</a></li>
+                            <li><a href="import-export.html">Import & Export</a></li>
+                            <li><a href="tours-event-management.html">Tours & Event Management</a></li>
+                            <li><a href="legal-help.html">Legal Help</a></li>
                             <li><a href="property-services.html">Property Services</a></li>
                             <li><a href="financial-services.html">Financial Services</a></li>
                             <li><a href="business-setup.html">Business Setup</a></li>
-                            <li><a href="legal-help.html">Legal Help</a></li>
-                            <li><a href="import-export.html">Import & Export</a></li>
-                            <li><a href="tours-event-management.html">Tours & Event Management</a></li>
                             <li><a href="comprehensive.html">Comprehensive NRI Services</a></li>
 
                         </ul>
@@ -269,7 +281,7 @@
                         <p class="contact-phone">T: 98150 00580</p>
                         <p class="contact-email">info@aarohanassociates.com</p>
                     </div>
-                    <button class="footer-contact-btn">Contact Us</button>
+                    <a href="contact-us.html"><button class="footer-contact-btn">Contact Us</button></a>
                 </div>
 
                 <!-- Column 4: Socials -->

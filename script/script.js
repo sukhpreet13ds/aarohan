@@ -1,9 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Highlight Active Link
+    const highlightActiveLink = () => {
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        const allLinks = document.querySelectorAll('.nav-link, .dropdown-item, .mobile-nav-link, .mobile-nav-list a, .mobile-dropdown-content a');
+
+        allLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath) {
+                link.classList.add('active');
+                
+                // If it's a dropdown item, also highlight the parent nav-link
+                if (link.classList.contains('dropdown-item')) {
+                    const parentDropdown = link.closest('.dropdown');
+                    if (parentDropdown) {
+                        const toggle = parentDropdown.querySelector('.nav-link');
+                        if (toggle) toggle.classList.add('active');
+                    }
+                }
+
+                // If it's in a mobile dropdown, expand it
+                const mobileDropdownContent = link.closest('.mobile-dropdown-content');
+                if (mobileDropdownContent) {
+                    const parentMobileDropdown = mobileDropdownContent.closest('.mobile-dropdown');
+                    if (parentMobileDropdown) {
+                        parentMobileDropdown.classList.add('active');
+                    }
+                }
+            }
+        });
+    };
+
+    highlightActiveLink();
+
     // Navbar Entrance Animation
     const navItems = document.querySelectorAll('.nav-item');
     const logo = document.querySelector('.navbar-brand');
     const button = document.querySelector('.btn-get-in-touch');
-
+    
     // Reset initial states
     if (logo) {
         logo.style.opacity = '0';
@@ -240,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             autoPlayTimer = setInterval(() => {
                 const next = (currentIndex + 1) % totalCards;
                 goToIndex(next);
-            }, 3000);
+            }, 2000);
         }
 
         function stopAutoPlay() {
@@ -331,6 +364,85 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+    }
+
+    // ============================================================
+    //  SCROLL REVEAL & COUNTER ANIMATION
+    // ============================================================
+    
+    // 1. Reveal Logic
+    const revealElements = document.querySelectorAll('section, .reveal');
+    
+    // Scan and hide reveal elements initially while waiting for observer
+    revealElements.forEach(el => {
+        if (!el.classList.contains('reveal')) {
+            el.classList.add('reveal');
+        }
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                
+                // If it's a number count element, start animating it specifically
+                if (entry.target.classList.contains('num-count')) {
+                    startSingleCounter(entry.target);
+                    // Unobserve after starting to prevent re-animation
+                    revealObserver.unobserve(entry.target);
+                }
+            }
+        });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+    
+    // Observe individual numbers for precision
+    document.querySelectorAll('.num-count').forEach(num => revealObserver.observe(num));
+
+    // Navbar Scroll Animation
+    const mainNav = document.querySelector('.navbar');
+    function updateNavbarOnScroll() {
+        if (window.scrollY > 50) {
+            mainNav.classList.add('scrolled');
+        } else {
+            mainNav.classList.remove('scrolled');
+        }
+    }
+    
+    window.addEventListener('scroll', updateNavbarOnScroll);
+    // Call once to set state in case page is refreshed while scrolled
+    updateNavbarOnScroll();
+
+    // 2. Optimized Counter Animation Function
+    function startSingleCounter(el) {
+        const originalText = el.innerText.trim();
+        const match = originalText.match(/(\d+)/);
+        
+        if (!match) return;
+
+        const target = parseInt(match[0]);
+        let current = 0;
+        const duration = 2500; // 2.5 seconds for a smoother, more noticeable count
+        const start = performance.now();
+
+        function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Smoother ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            current = Math.floor(eased * target);
+            
+            el.innerText = originalText.replace(match[0], current);
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                el.innerText = originalText;
+            }
+        }
+        requestAnimationFrame(update);
     }
 
 });

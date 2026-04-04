@@ -235,7 +235,7 @@
     background-color: var(--primary-color);
     color: #313131;
     border: none;
-    padding: 10px 30px;
+    padding: 20px 30px;
     border-radius: 50px;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -2900,4 +2900,220 @@
 
 .reveal-delay-10 {
     transition-delay: 1.3s;
+}
+/* ============================================================ */
+/*  404 & THANK YOU PAGES (PREMIUM REDESIGN)                     */
+/* ============================================================ */
+
+.notfound-section {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    background: radial-gradient(circle at center, #fdfdfd 0%, #f4f4f4 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.notfound-wrapper {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+}
+
+.notfound-glass-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    padding: clamp(40px, 8vw, 80px);
+    margin-bottom: 50px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.04);
+    display: inline-block;
+    animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.notfound-404-wrapper {
+    position: relative;
+}
+
+.notfound-404-text {
+    font-size: clamp(10rem, 30vw, 12rem);
+    font-weight: 900;
+    margin: 0;
+    background: linear-gradient(135deg, var(--dim-color-dark) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.06em;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.1));
+    animation: float 6s ease-in-out infinite;
+}
+
+.notfound-404-label {
+    display: block;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 800;
+    color: var(--primary-color);
+    letter-spacing: 0.4em;
+    margin-top: 30px;
+    text-transform: uppercase;
+}
+
+.notfound-wrapper.active .notfound-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    color: var(--dim-color-dark);
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.notfound-wrapper.active .notfound-text {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: #666;
+    max-width: 650px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.notfound-wrapper.active .notfound-btns {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* Thank You Section Refined */
+.thankyou-section {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
+    background: #ffffff;
+}
+
+.thankyou-wrapper {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.success-checkmark-svg {
+    width: clamp(180px, 30vw, 250px);
+    margin: 0 auto 50px;
+}
+
+.success-checkmark-svg svg {
+    display: block;
+}
+
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.thankyou-wrapper.active .path.circle {
+  animation: dash 2.5s ease-in-out forwards;
+}
+
+.thankyou-wrapper.active .path.check {
+  stroke-dashoffset: -100;
+  animation: dash-check 1s 1s ease-in-out forwards;
+}
+
+@keyframes dash {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes dash-check {
+  0% { stroke-dashoffset: -100; }
+  100% { stroke-dashoffset: 900; }
+}
+
+.thankyou-wrapper.active .thankyou-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 800;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--dim-color-dark) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.thankyou-wrapper.active .thankyou-text {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    color: #555;
+    max-width: 650px;
+    margin: 0 auto 50px;
+    line-height: 1.6;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.thankyou-wrapper.active .thankyou-btns {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* Base Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Outline Button for Light Background */
+.btn-outline-dark {
+    border: 2px solid #333;
+    color: #333 !important;
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: transparent;
+    font-size: 18px;
+}
+
+.btn-outline-dark:hover {
+    background: #333;
+    color: #fff !important;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 991px) {
+    .notfound-glass-card {
+        padding: 50px 30px;
+        border-radius: 40px;
+    }
+    
+    .notfound-404-text {
+        letter-spacing: -0.04em;
+    }
+    
+    .notfound-btns {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .notfound-btns .ms-md-3 {
+        margin-left: 0 !important;
+    }
+    
+    .btn-outline-dark, .btn-get-in-touch {
+        width: 100%;
+        max-width: 350px;
+    }
 }

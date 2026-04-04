@@ -117,7 +117,7 @@
 
 
 .navbar-brand img {
-    height: 50px;
+    height: 65px;
     transition: transform 0.3s ease;
 }
 
@@ -126,7 +126,7 @@
 }
 
 .navbar-nav .nav-link {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     color: #333;
     padding: 0.5rem 1.5rem !important;
@@ -277,7 +277,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1); */
     padding-bottom: 120px;
     /* Space for the absolute banner */
 }
@@ -509,6 +509,7 @@
     display: flex;
     flex-direction: column;
     padding: 30px;
+    overflow-y: scroll;
 }
 
 .mobile-side-menu.active {
@@ -794,8 +795,10 @@
     .hero-section {
         padding: 0 15px 10px 15px;
     }
-
-    .hero-container,
+.navbar-brand img{
+    height: 45px;
+}
+   
     .hero-container-about,
     .hero-container-services {
         height: auto;
@@ -806,7 +809,15 @@
         background-position: 70% center;
         background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 100%), var(--hero-bg) !important;
     }
-
+     .hero-container{
+        height: auto;
+        min-height: 520px;
+        padding: 60px 0 100px 0;
+        border-radius: 20px 20px 0 0;
+        text-align: center;
+        background-position: 70% center;
+        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 100%), var(--hero-bg) !important;
+     }
     .hero-container {
         --hero-bg: url('../assets/hero-section-aarohan.png');
     }
@@ -858,7 +869,7 @@
     .hero-bottom-banner {
         position: static;
         font-size: 16px;
-        border-radius: 0;
+        border-radius: 0 0 20px 20px;
         padding: 15px 10px;
         margin: 0;
         background-color: #004480;
@@ -1998,6 +2009,7 @@
 }
 
 .footer-links-list li {
+    display: inline-block;
     font-size: 16.7px;
     color: #93928E;
     margin-bottom: 12px;
@@ -2006,7 +2018,12 @@
     cursor: pointer;
 }
 
-.footer-links-list li:hover {
+.footer-link {
+    text-decoration: none;
+    color: #93928E;
+}
+
+.footer-links-list li a:hover {
     color: #03122C;
 }
 
@@ -2099,7 +2116,6 @@
     text-align: center;
     line-height: 0.6;
     margin-bottom: 15px;
-    /* Reduced margin to position it closer to legal text */
     letter-spacing: -5px;
     user-select: none;
     position: relative;
@@ -2121,9 +2137,7 @@
         gap: 40px;
     }
 
-    .footer-bg-text {
-        font-size: 180px;
-    }
+   
 }
 
 @media (max-width: 767px) {
@@ -2151,10 +2165,15 @@
     }
 
     .footer-bg-text {
-        font-size: 80px;
-        margin-bottom: 10px;
+        font-size: 50px;
+        margin-bottom: 15px;
         text-align: center;
-        align-items: center;
+        width: 100%;
+        left: 0;
+        top: 0;
+        transform: none;
+        position: relative;
+        letter-spacing: 2px;
     }
 
     .footer-inner {
@@ -2560,34 +2579,66 @@
 /* Responsive Accor */
 @media (max-width: 991px) {
     .accor-services-layout {
+        display: flex;
         flex-direction: column;
     }
 
-    .accor-btns-col {
-        flex: 1;
+    .accor-btns-col, 
+    .accor-content-col {
+        display: contents; /* Allows interleaving of children in the parent flex container */
+    }
+
+    /* Interleave Buttons and Panes using order */
+    .accor-btns-col .accor-btn:nth-child(1) { order: 1; }
+    .accor-content-col .accor-content-pane:nth-child(1) { order: 2; }
+    
+    .accor-btns-col .accor-btn:nth-child(2) { order: 3; }
+    .accor-content-col .accor-content-pane:nth-child(2) { order: 4; }
+    
+    .accor-btns-col .accor-btn:nth-child(3) { order: 5; }
+    .accor-content-col .accor-content-pane:nth-child(3) { order: 6; }
+    
+    .accor-btns-col .accor-btn:nth-child(4) { order: 7; }
+    .accor-content-col .accor-content-pane:nth-child(4) { order: 8; }
+    
+    .accor-btns-col .accor-btn:nth-child(5) { order: 9; }
+    .accor-content-col .accor-content-pane:nth-child(5) { order: 10; }
+    
+    .accor-btns-col .accor-btn:nth-child(6) { order: 11; }
+    .accor-content-col .accor-content-pane:nth-child(6) { order: 12; }
+
+    .accor-btns-col .accor-btn:nth-child(7) { order: 13; }
+    .accor-content-col .accor-content-pane:nth-child(7) { order: 14; }
+
+    .accor-btns-col .accor-btn:nth-child(8) { order: 15; }
+    .accor-content-col .accor-content-pane:nth-child(8) { order: 16; }
+
+    .accor-pane-footer {
+        order: 100; /* Ensure footer is always at the bottom */
     }
 
     .accor-btn {
         padding: 20px;
+        right: 0 !important; /* Reset desktop offset */
+        margin-bottom: 0;
+    }
+
+    .accor-btn.active {
+        right: 0 !important; /* Reset desktop offset */
     }
 
     .accor-arrow {
-        right: auto;
-        bottom: -14px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        border-top: 15px solid var(--primary-color);
-    }
-
-    .accor-content-col {
-        margin-top: 14px;
-        min-height: auto;
+        display: none !important; /* Hide the desktop side arrow */
     }
 
     .accor-content-pane {
         padding: 40px 25px;
+        background-color: #2B3E63; /* Re-apply background lost from .accor-content-col */
+        margin-bottom: 5px; /* Small gap before next button */
+    }
+
+    .accor-btns-col {
+        margin-top: 20px;
     }
 }
 

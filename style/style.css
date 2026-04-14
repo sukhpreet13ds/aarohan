@@ -3117,3 +3117,213 @@
         max-width: 350px;
     }
 }
+
+
+ .aarohan-policy-classname {
+    --primary-color: #D0AC80;
+    --secondary-color: #0055A0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: #ffffff;
+    padding: 2rem 1rem;
+    margin: 0;
+  }
+
+  .aarohan-policy-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .aarohan-policy-title {
+    color: var(--secondary-color);
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .aarohan-policy-section {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .aarohan-policy-section:last-child {
+    border-bottom: none;
+  }
+
+  .aarohan-policy-subtitle {
+    color: var(--secondary-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .aarohan-policy-text {
+    color: #374151;
+    line-height: 1.65;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .aarohan-policy-classname {
+      padding: 1.5rem 1rem;
+    }
+    
+    .aarohan-policy-title {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .aarohan-policy-subtitle {
+      font-size: 1.2rem;
+    }
+    
+    .aarohan-policy-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    .aarohan-policy-section {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .aarohan-policy-title {
+      font-size: 1.5rem;
+    }
+    
+    .aarohan-policy-subtitle {
+      font-size: 1.1rem;
+    }
+    
+    .aarohan-policy-text {
+      font-size: 0.9rem;
+    }
+  }
+
+   .aarohan-terms-classname {
+    --primary-color: #D0AC80;
+    --secondary-color: #0055A0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: #ffffff;
+    padding: 2rem 1rem;
+    margin: 0;
+  }
+
+  .aarohan-terms-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .aarohan-terms-title {
+    color: var(--secondary-color);
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .aarohan-terms-intro {
+    color: #374151;
+    line-height: 1.65;
+    font-size: 1rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary-color);
+  }
+
+  .aarohan-terms-card {
+    background: #fafaf9;
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+    border: 1px solid #e5e7eb;
+  }
+
+  .aarohan-terms-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 85, 160, 0.08);
+  }
+
+  .aarohan-terms-subtitle {
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .aarohan-terms-text {
+    color: #374151;
+    line-height: 1.65;
+    font-size: 0.95rem;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .aarohan-terms-text:last-child {
+    margin-bottom: 0;
+  }
+
+  .aarohan-terms-text strong {
+    color: var(--secondary-color);
+    font-weight: 600;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .aarohan-terms-classname {
+      padding: 1.5rem 0.75rem;
+    }
+    
+    .aarohan-terms-title {
+      font-size: 1.75rem;
+    }
+    
+    .aarohan-terms-intro {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .aarohan-terms-card {
+      padding: 1rem 1.25rem;
+      border-radius: 14px;
+    }
+    
+    .aarohan-terms-subtitle {
+      font-size: 1.15rem;
+    }
+    
+    .aarohan-terms-text {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .aarohan-terms-title {
+      font-size: 1.5rem;
+    }
+    
+    .aarohan-terms-card {
+      padding: 0.875rem 1rem;
+    }
+    
+    .aarohan-terms-subtitle {
+      font-size: 1.05rem;
+    }
+    
+    .aarohan-terms-text {
+      font-size: 0.85rem;
+    }
+  }
